@@ -15,15 +15,15 @@ export class ThreeScene {
 
   constructor() {
     this.scene = new THREE.Scene();
-		this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 3000 );
 
-		this.renderer = new THREE.WebGLRenderer();
-		this.renderer.setSize( window.innerWidth, window.innerHeight );
-		document.body.appendChild(this.renderer.domElement);
+    this.renderer = new THREE.WebGLRenderer();
+    this.renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild(this.renderer.domElement);
 
-		this.camera.position.z = 5;
+    this.camera.position.z = 5;
     this.camera.rotation.x = -Math.PI * 0.5;
-		this.render();
+    this.render();
     this.init();
   }
 
@@ -36,6 +36,7 @@ export class ThreeScene {
   }
 
   init() {
+    let self = this;
     this.controller = new Leap.Controller({
       enableGestures: true
     });
@@ -57,7 +58,24 @@ export class ThreeScene {
         positionScale: 0.8,
         checkWebGL: true
       })
+      .loop(function(frame) {
+        if (frame.hands[0]) {
+          let hand = frame.hands[0];
+          var children = self.scene.children;
+
+          for (var i = 0; i < children.length; i++) {
+              if (children[i].name === "hand") {
+                var tmpHandY = children[i].position.y;
+                children[i].position.y = -70;
+                children[i].position.z = -tmpHandY;
+              }
+          }
+
+          return null;
+        }
+      })
       .on('riggedHand.meshAdded', function(handMesh, leapHand){
+        handMesh.name= "hand";
       })
       .connect()
     ;
