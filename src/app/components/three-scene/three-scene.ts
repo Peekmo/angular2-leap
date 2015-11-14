@@ -17,7 +17,7 @@ export class ThreeScene {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 3000 );
 
-    this.renderer = new THREE.WebGLRenderer();
+    this.renderer = new THREE.WebGLRenderer({alpha: true});
     this.renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild(this.renderer.domElement);
 
