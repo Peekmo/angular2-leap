@@ -7,7 +7,8 @@ import {LinkElement} from './components/link-element/link-element';
   providers: [],
   templateUrl: 'app/leap.html',
   directives: [ThreeScene, LinkElement],
-  pipes: []
+  pipes: [],
+  styleUrls: ['app/leap.css']
 })
 export class LeapApp {
   private elements;
