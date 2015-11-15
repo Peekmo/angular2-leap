@@ -1,12 +1,13 @@
 import {Component} from 'angular2/angular2';
+import {LeapHand} from '../leap-hand/leap-hand';
 
 declare var THREE: any;
-declare var Leap: any;
 
 @Component({
   selector: 'three-scene',
   templateUrl: 'app/components/three-scene/three-scene.html',
-  styleUrls: ['app/components/three-scene/three-scene.css']
+  styleUrls: ['app/components/three-scene/three-scene.css'],
+  directives: [LeapHand]
 })
 export class ThreeScene {
   private scene: any;
@@ -24,7 +25,6 @@ export class ThreeScene {
     this.camera.position.z = 5;
     this.camera.rotation.x = -Math.PI * 0.5;
     this.render();
-    this.init();
   }
 
   render() {
@@ -33,51 +33,5 @@ export class ThreeScene {
       self.render();
     });
     this.renderer.render(this.scene, this.camera);
-  }
-
-  init() {
-    let self = this;
-    this.controller = new Leap.Controller({
-      enableGestures: true
-    });
-
-    this.controller
-      .use("handHold")
-      .use("handEntry")
-      .use("screenPosition")
-      .use("transform", {
-        position: new THREE.Vector3(0, 0, 0)
-      })
-      .use("riggedHand", {
-        parent: this.scene,
-        renderer: this.renderer,
-        renderFn: function() {
-        },
-        camera: this.camera,
-        scale: 0.05,
-        positionScale: 0.8,
-        checkWebGL: true
-      })
-      .loop(function(frame) {
-        if (frame.hands[0]) {
-          let hand = frame.hands[0];
-          var children = self.scene.children;
-
-          for (var i = 0; i < children.length; i++) {
-              if (children[i].name === "hand") {
-                var tmpHandY = children[i].position.y;
-                children[i].position.y = -70;
-                children[i].position.z = -tmpHandY;
-              }
-          }
-
-          return null;
-        }
-      })
-      .on('riggedHand.meshAdded', function(handMesh, leapHand){
-        handMesh.name= "hand";
-      })
-      .connect()
-    ;
   }
 }
