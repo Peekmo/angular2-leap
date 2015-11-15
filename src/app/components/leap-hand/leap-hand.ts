@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from 'angular2/angular2';
+import {LeapHandService} from '../../services/leap-hand/leap-hand-service';
 
 declare var THREE: any;
 declare var Leap: any;
@@ -13,6 +14,11 @@ export class LeapHand implements OnInit {
   @Input() camera: any;
 
   private controller: any;
+  private leapHandService: LeapHandService;
+
+  constructor(leapHandService: LeapHandService) {
+    this.leapHandService = leapHandService;
+  }
 
   onInit() {
     let self = this;
@@ -39,6 +45,8 @@ export class LeapHand implements OnInit {
       })
       .loop(function(frame) {
         if (frame.hands[0]) {
+          self.leapHandService.hand = frame.hands[0];
+
           let hand = frame.hands[0];
           var children = self.scene.children;
 
@@ -51,6 +59,8 @@ export class LeapHand implements OnInit {
           }
 
           return null;
+        } else {
+          self.leapHandService.hand = null;
         }
       })
       .on('riggedHand.meshAdded', function(handMesh, leapHand){
