@@ -5,7 +5,8 @@ declare var Leap: any;
 
 @Component({
   selector: 'three-scene',
-  templateUrl: 'app/components/three-scene/three-scene.html'
+  templateUrl: 'app/components/three-scene/three-scene.html',
+  styleUrls: ['app/components/three-scene/three-scene.css']
 })
 export class ThreeScene {
   private scene: any;
@@ -17,9 +18,8 @@ export class ThreeScene {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 3000 );
 
-    this.renderer = new THREE.WebGLRenderer({alpha: true});
-    this.renderer.setSize( window.innerWidth, window.innerHeight );
-    document.body.appendChild(this.renderer.domElement);
+    this.renderer = new THREE.WebGLRenderer({alpha: true, canvas: document.getElementById("canvas")});
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
 
     this.camera.position.z = 5;
     this.camera.rotation.x = -Math.PI * 0.5;
