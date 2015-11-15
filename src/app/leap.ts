@@ -21,6 +21,8 @@ export class LeapApp {
   }
 
   onGrab(event) {
-  
+    this.elements.forEach(function(elmt) {
+      elmt.onGrab();
+    });
   }
 }

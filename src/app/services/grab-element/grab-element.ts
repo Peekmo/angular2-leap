@@ -23,9 +23,9 @@ export class GrabElement {
 
     if (
       handPositions.x >= positions.x &&
-      handPositions.x <= (positions.x + element.nativeElement.width) &&
+      handPositions.x <= (positions.x + element.nativeElement.offsetWidth) &&
       handPositions.y >= positions.y &&
-      handPositions.y <= (positions.y + element.nativeElement.height)
+      handPositions.y <= (positions.y + element.nativeElement.offsetHeight)
     ) {
       return true;
     }
