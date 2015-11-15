@@ -13,6 +13,7 @@ export class LinkElement {
   @Output() register: EventEmitter = new EventEmitter();
   private grabber: GrabElement;
   private elmtRef: ElementRef;
+  private selected: boolean = false;
 
   constructor(grabber: GrabElement, elmtRef: ElementRef) {
     this.grabber = grabber;
@@ -23,10 +24,16 @@ export class LinkElement {
     this.register.next({element: this});
   }
 
-  onHover() {
+  onHover(event) {
     if (this.grabber.isIn(this.elmtRef)) {
       this.elmtRef.nativeElement.classList.add('hover');
+
+      if (event.pinch && !this.selected) {
+        this.selected = true;
+        window.location.href = this.href;
+      }
     } else {
+      this.selected = false;
       this.elmtRef.nativeElement.classList.remove('hover');
     }
   }

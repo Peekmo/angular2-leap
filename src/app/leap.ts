@@ -23,7 +23,7 @@ export class LeapApp {
 
   onMoveHand(event) {
     this.elements.forEach(function(elmt) {
-      elmt.onHover();
+      elmt.onHover(event);
     });
   }
 }

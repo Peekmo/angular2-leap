@@ -64,9 +64,10 @@ export class LeapHand implements OnInit {
             }
           }
 
-          self.movehand.next({});
-        } else {
+          self.movehand.next({pinch: hand.pinchStrength >= 0.9});
+        } else if (self.leapHandService.hand) {
           self.leapHandService.hand = null;
+          self.movehand.next({pinch: false});
         }
       })
       .on('riggedHand.meshAdded', function(handMesh, leapHand){
