@@ -21,6 +21,9 @@ export class LeapHand implements OnInit {
   }
 
   onInit() {
+    this.leapHandService.camera = this.camera;
+    this.leapHandService.renderer = this.renderer;
+
     let self = this;
     this.controller = new Leap.Controller({
       enableGestures: true
@@ -45,20 +48,19 @@ export class LeapHand implements OnInit {
       })
       .loop(function(frame) {
         if (frame.hands[0]) {
-          self.leapHandService.hand = frame.hands[0];
-
           let hand = frame.hands[0];
           var children = self.scene.children;
 
           for (var i = 0; i < children.length; i++) {
-              if (children[i].name === "hand") {
-                var tmpHandY = children[i].position.y;
-                children[i].position.y = -70;
-                children[i].position.z = -tmpHandY;
-              }
-          }
+            if (children[i].name === "hand") {
+              var tmpHandY = children[i].position.y;
+              children[i].position.y = -70;
+              children[i].position.z = -tmpHandY;
 
-          return null;
+              self.leapHandService.hand = children[i];
+              break;
+            }
+          }
         } else {
           self.leapHandService.hand = null;
         }
