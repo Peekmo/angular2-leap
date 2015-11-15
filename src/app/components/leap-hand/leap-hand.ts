@@ -75,5 +75,20 @@ export class LeapHand implements OnInit {
       })
       .connect()
     ;
+
+    let swiper = this.controller.gesture('swipe');
+    swiper.update(function(g) {
+      if (Math.abs(g.translation()[0]) > 100) {
+        if (g.translation()[0] > 0) {
+          // next
+        } else {
+          // prev
+        }
+      }
+
+      if (Math.abs(g.translation()[1]) > 100) {
+        // down
+      }
+    });
   }
 }
