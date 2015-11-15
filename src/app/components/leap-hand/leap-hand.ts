@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from 'angular2/angular2';
+import {Component, Input, Output, EventEmitter, OnInit} from 'angular2/angular2';
 import {LeapHandService} from '../../services/leap-hand/leap-hand-service';
 
 declare var THREE: any;
@@ -6,12 +6,14 @@ declare var Leap: any;
 
 @Component({
   selector: 'leap-hand',
+  events: ['grab'],
   template: ''
 })
 export class LeapHand implements OnInit {
   @Input() scene: any;
   @Input() renderer: any;
   @Input() camera: any;
+  @Output() grab: EventEmitter = new EventEmitter();
 
   private controller: any;
   private leapHandService: LeapHandService;
@@ -61,6 +63,8 @@ export class LeapHand implements OnInit {
               break;
             }
           }
+
+          self.grab.next({});
         } else {
           self.leapHandService.hand = null;
         }

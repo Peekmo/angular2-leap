@@ -1,4 +1,4 @@
-import {Component} from 'angular2/angular2';
+import {Component, Output, EventEmitter} from 'angular2/angular2';
 import {LeapHand} from '../leap-hand/leap-hand';
 
 declare var THREE: any;
@@ -7,6 +7,7 @@ declare var THREE: any;
   selector: 'three-scene',
   templateUrl: 'app/components/three-scene/three-scene.html',
   styleUrls: ['app/components/three-scene/three-scene.css'],
+  events: ['grab'],
   directives: [LeapHand]
 })
 export class ThreeScene {
@@ -14,6 +15,7 @@ export class ThreeScene {
   private camera: any;
   private renderer: any;
   private controller: any;
+  @Output() grab: EventEmitter = new EventEmitter();
 
   constructor() {
     this.scene = new THREE.Scene();
@@ -33,5 +35,9 @@ export class ThreeScene {
       self.render();
     });
     this.renderer.render(this.scene, this.camera);
+  }
+
+  onGrab(event) {
+    this.grab.next(event);
   }
 }

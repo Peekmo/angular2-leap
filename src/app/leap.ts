@@ -10,7 +10,17 @@ import {LinkElement} from './components/link-element/link-element';
   pipes: []
 })
 export class LeapApp {
+  private elements;
 
-  constructor() {}
+  constructor() {
+    this.elements = new Array();
+  }
 
+  registerElement(event) {
+    this.elements.push(event.element);
+  }
+
+  onGrab(event) {
+  
+  }
 }

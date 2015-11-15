@@ -1,2 +1,2 @@
 <canvas id="canvas"></canvas>
-<leap-hand [scene]="scene" [renderer]="renderer" [camera]="camera"></leap-hand>
+<leap-hand [scene]="scene" [renderer]="renderer" [camera]="camera" (grab)="onGrab($event)"></leap-hand>
