@@ -3,3 +3,7 @@
     padding: 10px;
     font-size: 20pt;
 }
+
+.link-element-container.hover {
+    background-color: orange;
+}

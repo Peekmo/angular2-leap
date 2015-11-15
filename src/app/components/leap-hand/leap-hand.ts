@@ -6,14 +6,14 @@ declare var Leap: any;
 
 @Component({
   selector: 'leap-hand',
-  events: ['grab'],
+  events: ['movehand'],
   template: ''
 })
 export class LeapHand implements OnInit {
   @Input() scene: any;
   @Input() renderer: any;
   @Input() camera: any;
-  @Output() grab: EventEmitter = new EventEmitter();
+  @Output() movehand: EventEmitter = new EventEmitter();
 
   private controller: any;
   private leapHandService: LeapHandService;
@@ -64,7 +64,7 @@ export class LeapHand implements OnInit {
             }
           }
 
-          self.grab.next({});
+          self.movehand.next({});
         } else {
           self.leapHandService.hand = null;
         }

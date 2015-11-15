@@ -23,7 +23,11 @@ export class LinkElement {
     this.register.next({element: this});
   }
 
-  onGrab() {
-    console.log(this.grabber.isIn(this.elmtRef));
+  onHover() {
+    if (this.grabber.isIn(this.elmtRef)) {
+      this.elmtRef.nativeElement.classList.add('hover');
+    } else {
+      this.elmtRef.nativeElement.classList.remove('hover');
+    }
   }
 }

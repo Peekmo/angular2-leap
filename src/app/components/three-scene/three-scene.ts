@@ -7,7 +7,7 @@ declare var THREE: any;
   selector: 'three-scene',
   templateUrl: 'app/components/three-scene/three-scene.html',
   styleUrls: ['app/components/three-scene/three-scene.css'],
-  events: ['grab'],
+  events: ['movehand'],
   directives: [LeapHand]
 })
 export class ThreeScene {
@@ -15,7 +15,7 @@ export class ThreeScene {
   private camera: any;
   private renderer: any;
   private controller: any;
-  @Output() grab: EventEmitter = new EventEmitter();
+  @Output() movehand: EventEmitter = new EventEmitter();
 
   constructor() {
     this.scene = new THREE.Scene();
@@ -37,7 +37,7 @@ export class ThreeScene {
     this.renderer.render(this.scene, this.camera);
   }
 
-  onGrab(event) {
-    this.grab.next(event);
+  onMoveHand(event) {
+    this.movehand.next(event);
   }
 }

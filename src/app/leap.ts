@@ -21,9 +21,9 @@ export class LeapApp {
     this.elements.push(event.element);
   }
 
-  onGrab(event) {
+  onMoveHand(event) {
     this.elements.forEach(function(elmt) {
-      elmt.onGrab();
+      elmt.onHover();
     });
   }
 }
