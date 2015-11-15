@@ -5,8 +5,22 @@ declare var THREE: any;
 
 @Component({
   selector: 'three-scene',
-  templateUrl: 'app/components/three-scene/three-scene.html',
-  styleUrls: ['app/components/three-scene/three-scene.css'],
+  template: `
+    <canvas id="canvas"></canvas>
+    <leap-hand
+      [scene]="scene"
+      [renderer]="renderer"
+      [camera]="camera"
+      (movehand)="onMoveHand($event)"
+    ></leap-hand>
+  `,
+  styles: [`
+    #canvas {
+      position: fixed;
+      top: 0;
+      z-index: 100;
+    }
+  `],
   events: ['movehand'],
   directives: [LeapHand]
 })

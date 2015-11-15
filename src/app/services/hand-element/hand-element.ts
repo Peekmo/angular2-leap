@@ -2,7 +2,7 @@ import {Injectable, ElementRef} from 'angular2/angular2';
 import {LeapHandService} from '../leap-hand/leap-hand-service';
 
 @Injectable()
-export class GrabElement {
+export class HandElement {
   private leapHand: LeapHandService;
 
   constructor(leapHand: LeapHandService) {
