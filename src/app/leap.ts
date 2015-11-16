@@ -1,12 +1,13 @@
 import {Component, bootstrap} from 'angular2/angular2';
 import {ThreeScene} from './components/three-scene/three-scene';
+import {Keyboard} from './components/keyboard/keyboard';
 import {LinkElement} from './components/link-element/link-element';
 import {ComponentManager} from './services/component-manager/component-manager';
 
 @Component({
   selector: 'leap-app',
   templateUrl: 'app/leap.html',
-  directives: [ThreeScene, LinkElement],
+  directives: [ThreeScene, LinkElement, Keyboard],
   styleUrls: ['app/leap.css']
 })
 export class LeapApp {
