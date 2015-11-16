@@ -3,4 +3,4 @@
   <link-element [href]="'http://deezer.fr'" [name]="'Deezer'" (register)="registerElement($event)" class="link-element-container"></link-element>
 </p>
 
-<three-scene (movehand)="onMoveHand($event)"></three-scene>
+<three-scene (movehand)="onMoveHand($event)" (swipehand)="onSwipeHand($event)"></three-scene>

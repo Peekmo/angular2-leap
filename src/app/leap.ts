@@ -26,4 +26,10 @@ export class LeapApp {
       elmt.onHover(event);
     });
   }
+
+  onSwipeHand(event) {
+    this.elements.forEach(function(elmt) {
+      elmt.onSwipe(event);
+    });
+  }
 }

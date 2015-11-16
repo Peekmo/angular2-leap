@@ -12,6 +12,7 @@ declare var THREE: any;
       [renderer]="renderer"
       [camera]="camera"
       (movehand)="onMoveHand($event)"
+      (swipehand)="onSwipeHand($event)"
     ></leap-hand>
   `,
   styles: [`
@@ -21,7 +22,7 @@ declare var THREE: any;
       z-index: 100;
     }
   `],
-  events: ['movehand'],
+  events: ['movehand', 'swipehand'],
   directives: [LeapHand]
 })
 export class ThreeScene {
@@ -30,6 +31,7 @@ export class ThreeScene {
   private renderer: any;
   private controller: any;
   @Output() movehand: EventEmitter = new EventEmitter();
+  @Output() swipehand: EventEmitter = new EventEmitter();
 
   constructor() {
     this.scene = new THREE.Scene();
@@ -53,5 +55,9 @@ export class ThreeScene {
 
   onMoveHand(event) {
     this.movehand.next(event);
+  }
+
+  onSwipeHand(event) {
+    this.swipehand.next(event);
   }
 }

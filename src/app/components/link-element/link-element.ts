@@ -40,4 +40,8 @@ export class LinkElement {
       this.elmtRef.nativeElement.classList.remove('hover');
     }
   }
+
+  onSwipe(event) {
+    console.log(event);
+  }
 }

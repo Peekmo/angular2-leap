@@ -6,7 +6,7 @@ declare var Leap: any;
 
 @Component({
   selector: 'leap-hand',
-  events: ['movehand'],
+  events: ['movehand', 'swipehand'],
   template: ''
 })
 export class LeapHand implements OnInit {
@@ -14,8 +14,10 @@ export class LeapHand implements OnInit {
   @Input() renderer: any;
   @Input() camera: any;
   @Output() movehand: EventEmitter = new EventEmitter();
+  @Output() swipehand: EventEmitter = new EventEmitter();
 
   private controller: any;
+  private swiper: any;
   private leapHandService: LeapHandService;
 
   constructor(leapHandService: LeapHandService) {
@@ -76,18 +78,23 @@ export class LeapHand implements OnInit {
       .connect()
     ;
 
-    let swiper = this.controller.gesture('swipe');
-    swiper.update(function(g) {
+    this.swiper = this.controller.gesture('swipe');
+    this.swiper.update(function(g) {
       if (Math.abs(g.translation()[0]) > 100) {
         if (g.translation()[0] > 0) {
-          // next
+          self.swipehand.next({direction: 'left'});
         } else {
-          // prev
+          self.swipehand.next({direction: 'right'});
         }
       }
 
       if (Math.abs(g.translation()[1]) > 100) {
-        // down
+        if (g.translation()[1] > 0) {
+           // The down is harder to do 
+          self.swipehand.next({direction: 'down'});
+        } else {
+          self.swipehand.next({direction: 'up'});
+        }
       }
     });
   }
