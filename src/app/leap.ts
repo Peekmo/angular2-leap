@@ -1,35 +1,36 @@
 import {Component, bootstrap} from 'angular2/angular2';
 import {ThreeScene} from './components/three-scene/three-scene';
 import {LinkElement} from './components/link-element/link-element';
+import {ComponentManager} from './services/component-manager/component-manager';
 
 @Component({
   selector: 'leap-app',
-  providers: [],
   templateUrl: 'app/leap.html',
   directives: [ThreeScene, LinkElement],
-  pipes: [],
   styleUrls: ['app/leap.css']
 })
 export class LeapApp {
-  private elements;
+  private manager: ComponentManager;
 
-  constructor() {
-    this.elements = new Array();
-  }
-
-  registerElement(event) {
-    this.elements.push(event.element);
+  constructor(manager: ComponentManager) {
+    this.manager = manager;
   }
 
   onMoveHand(event) {
-    this.elements.forEach(function(elmt) {
+    this.manager.components.forEach(function(elmt) {
       elmt.onHover(event);
     });
   }
 
   onSwipeHand(event) {
-    this.elements.forEach(function(elmt) {
+    this.manager.components.forEach(function(elmt) {
       elmt.onSwipe(event);
+    });
+  }
+
+  onKeyTap(event) {
+    this.manager.components.forEach(function(elmt) {
+      elmt.onKeytap(event);
     });
   }
 }

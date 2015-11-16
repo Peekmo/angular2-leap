@@ -15,6 +15,7 @@ export class LeapHand implements OnInit {
   @Input() camera: any;
   @Output() movehand: EventEmitter = new EventEmitter();
   @Output() swipehand: EventEmitter = new EventEmitter();
+  @Output() keytaphand: EventEmitter = new EventEmitter();
 
   private controller: any;
   private swiper: any;
@@ -78,6 +79,13 @@ export class LeapHand implements OnInit {
       .connect()
     ;
 
+    this.initSwipe();
+    this.initKeyTap();
+  }
+
+  initSwipe() {
+    let self = this;
+
     this.swiper = this.controller.gesture('swipe');
     this.swiper.update(function(g) {
       if (Math.abs(g.translation()[0]) > 100) {
@@ -90,11 +98,21 @@ export class LeapHand implements OnInit {
 
       if (Math.abs(g.translation()[1]) > 100) {
         if (g.translation()[1] > 0) {
-           // The down is harder to do 
+           // The down is harder to do
           self.swipehand.next({direction: 'down'});
         } else {
           self.swipehand.next({direction: 'up'});
         }
+      }
+    });
+  }
+
+  initKeyTap() {
+    let self = this;
+
+    this.controller.on("gesture", function(g) {
+      if (g.type == "keyTap") {
+        self.keytaphand.next({position: g.position});
       }
     });
   }

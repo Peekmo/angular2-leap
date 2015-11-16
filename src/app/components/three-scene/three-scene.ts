@@ -13,6 +13,7 @@ declare var THREE: any;
       [camera]="camera"
       (movehand)="onMoveHand($event)"
       (swipehand)="onSwipeHand($event)"
+      (keytaphand)="onKeyTap($event)"
     ></leap-hand>
   `,
   styles: [`
@@ -32,6 +33,13 @@ export class ThreeScene {
   private controller: any;
   @Output() movehand: EventEmitter = new EventEmitter();
   @Output() swipehand: EventEmitter = new EventEmitter();
+  @Output() keytaphand: EventEmitter = new EventEmitter();
+
+  private timers = {
+    movehand: false,
+    swipehand: false,
+    keytaphand: false
+  };
 
   constructor() {
     this.scene = new THREE.Scene();
@@ -54,10 +62,36 @@ export class ThreeScene {
   }
 
   onMoveHand(event) {
-    this.movehand.next(event);
+    if (!this.timers.movehand) {
+      this.timers.movehand = true;
+      this.movehand.next(event);
+
+      setTimeout(() => {
+        this.timers.movehand = false;
+      }, 100);
+    }
   }
 
   onSwipeHand(event) {
-    this.swipehand.next(event);
+    if (!this.timers.swipehand) {
+      this.timers.swipehand = true;
+      this.swipehand.next(event);
+
+      setTimeout(() => {
+        this.timers.swipehand = false;
+      }, 100);
+    }
+  }
+
+  onKeyTap(event) {
+    console.log(event);
+    if (!this.timers.keytaphand) {
+      this.timers.keytaphand = true;
+      this.keytaphand.next(event);
+
+      setTimeout(() => {
+        this.timers.keytaphand = false;
+      }, 100);
+    }
   }
 }

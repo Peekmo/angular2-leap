@@ -1,6 +1,6 @@
 <p>
-  <link-element [href]="'http://google.fr'" [name]="'Google'" (register)="registerElement($event)" class="link-element-container"></link-element>
-  <link-element [href]="'http://deezer.fr'" [name]="'Deezer'" (register)="registerElement($event)" class="link-element-container"></link-element>
+  <link-element [href]="'http://google.fr'" [name]="'Google'" class="link-element-container"></link-element>
+  <link-element [href]="'http://deezer.fr'" [name]="'Deezer'" class="link-element-container"></link-element>
 </p>
 
-<three-scene (movehand)="onMoveHand($event)" (swipehand)="onSwipeHand($event)"></three-scene>
+<three-scene (movehand)="onMoveHand($event)" (swipehand)="onSwipeHand($event)" (keytaphand)="onKeyTap($event)"></three-scene>

@@ -1,5 +1,6 @@
-import {Component, Input, Output, EventEmitter, ElementRef} from 'angular2/angular2';
+import {Component, Input, Output, EventEmitter, ElementRef, OnInit} from 'angular2/angular2';
 import {HandElement} from '../../services/hand-element/hand-element';
+import {ComponentManager} from '../../services/component-manager/component-manager';
 
 @Component({
   selector: 'link-element',
@@ -7,24 +8,24 @@ import {HandElement} from '../../services/hand-element/hand-element';
     <span>
       <a href="{{ href }}">{{ name }}</a>
     </span>
-  `,
-  events: ['register']
+  `
 })
-export class LinkElement {
+export class LinkElement implements OnInit {
   @Input() href: string;
   @Input() name: string;
-  @Output() register: EventEmitter = new EventEmitter();
   private grabber: HandElement;
   private elmtRef: ElementRef;
+  private manager: ComponentManager
   private selected: boolean = false;
 
-  constructor(grabber: HandElement, elmtRef: ElementRef) {
+  constructor(grabber: HandElement, elmtRef: ElementRef, manager: ComponentManager) {
     this.grabber = grabber;
     this.elmtRef = elmtRef;
+    this.manager = manager;
   }
 
   onInit() {
-    this.register.next({element: this});
+    this.manager.register(this);
   }
 
   onHover(event) {
@@ -42,6 +43,10 @@ export class LinkElement {
   }
 
   onSwipe(event) {
+    console.log(event);
+  }
+
+  onKeytap(event) {
     console.log(event);
   }
 }
