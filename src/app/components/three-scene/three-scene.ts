@@ -1,5 +1,6 @@
 import {Component, Output, EventEmitter} from 'angular2/angular2';
 import {LeapHand} from '../leap-hand/leap-hand';
+import {ComponentManager} from '../../services/component-manager/component-manager';
 
 declare var THREE: any;
 
@@ -23,7 +24,6 @@ declare var THREE: any;
       z-index: 100;
     }
   `],
-  events: ['movehand', 'swipehand'],
   directives: [LeapHand]
 })
 export class ThreeScene {
@@ -31,9 +31,7 @@ export class ThreeScene {
   private camera: any;
   private renderer: any;
   private controller: any;
-  @Output() movehand: EventEmitter = new EventEmitter();
-  @Output() swipehand: EventEmitter = new EventEmitter();
-  @Output() keytaphand: EventEmitter = new EventEmitter();
+  private manager: ComponentManager;
 
   private timers = {
     movehand: false,
@@ -41,13 +39,14 @@ export class ThreeScene {
     keytaphand: false
   };
 
-  constructor() {
+  constructor(manager: ComponentManager) {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 3000 );
 
     this.renderer = new THREE.WebGLRenderer({alpha: true, canvas: document.getElementById("canvas")});
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
+    this.manager = manager;
     this.camera.position.z = 5;
     this.camera.rotation.x = -Math.PI * 0.5;
     this.render();
@@ -64,7 +63,9 @@ export class ThreeScene {
   onMoveHand(event) {
     if (!this.timers.movehand) {
       this.timers.movehand = true;
-      this.movehand.next(event);
+      this.manager.components.forEach(function(elmt) {
+        elmt.onHover(event);
+      });
 
       setTimeout(() => {
         this.timers.movehand = false;
@@ -75,7 +76,9 @@ export class ThreeScene {
   onSwipeHand(event) {
     if (!this.timers.swipehand) {
       this.timers.swipehand = true;
-      this.swipehand.next(event);
+      this.manager.components.forEach(function(elmt) {
+        elmt.onSwipe(event);
+      });
 
       setTimeout(() => {
         this.timers.swipehand = false;
@@ -86,7 +89,9 @@ export class ThreeScene {
   onKeyTap(event) {
     if (!this.timers.keytaphand) {
       this.timers.keytaphand = true;
-      this.keytaphand.next(event);
+      this.manager.components.forEach(function(elmt) {
+        elmt.onKeytap(event);
+      });
 
       setTimeout(() => {
         this.timers.keytaphand = false;
