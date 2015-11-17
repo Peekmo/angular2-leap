@@ -15,6 +15,7 @@ export class Keyboard {
   private keyboards: Object;
   private currentKeyboard: Array<string>;
   private text: string = '';
+  private timer: boolean = false;
 
   constructor() {
     this.keyboards = {
@@ -31,6 +32,13 @@ export class Keyboard {
   }
 
   letterSelected(event) {
-    this.text += event.letter;
+    if (!this.timer) {
+      this.timer = true;
+      this.text += event.letter;
+
+      setTimeout(() => {
+        this.timer = false;
+      }, 50);
+    }
   }
 }
