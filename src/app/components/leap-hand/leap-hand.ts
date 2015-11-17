@@ -48,7 +48,7 @@ export class LeapHand implements OnInit {
         },
         camera: self.camera,
         scale: 0.05,
-        positionScale: 0.8,
+        positionScale: 1,
         checkWebGL: true
       })
       .loop(function(frame) {
