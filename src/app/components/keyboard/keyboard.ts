@@ -1,37 +1,36 @@
-import {Component, ElementRef} from 'angular2/angular2';
+import {Component, Input, NgFor, NgIf, NgClass, NgModel} from 'angular2/angular2';
 import {HandElement} from '../../services/hand-element/hand-element';
 import {ComponentManager} from '../../services/component-manager/component-manager';
+import {KeyboardLetter} from './keyboard-letter';
 
 @Component({
   selector: 'keyboard',
   templateUrl: 'app/components/keyboard/keyboard.html',
   styleUrls: ['app/components/keyboard/keyboard.css'],
-  directives: []
+  directives: [NgFor, NgIf, NgClass, NgModel, KeyboardLetter]
 })
 export class Keyboard {
-  private grabber: HandElement;
-  private elmtRef: ElementRef;
-  private manager: ComponentManager
+  @Input() keyboardType;
 
-  constructor(grabber: HandElement, elmtRef: ElementRef, manager: ComponentManager) {
-    this.grabber = grabber;
-    this.elmtRef = elmtRef;
-    this.manager = manager;
+  private keyboards: Object;
+  private currentKeyboard: Array<string>;
+  private text: string = '';
+
+  constructor() {
+    this.keyboards = {
+      'azerty': [
+        'a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'next_line',
+        'q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'next_line',
+        'w', 'x', 'c', 'v', 'b', 'n'
+      ]
+    }
   }
 
   onInit() {
-    this.manager.register(this);
+    this.currentKeyboard = this.keyboards[this.keyboardType];
   }
 
-  onHover(event) {
-    console.log("keyboard hover");
-  }
-
-  onSwipe(event) {
-    console.log("keyboard swipe");
-  }
-
-  onKeytap(event) {
-    console.log("keyboard tap");
+  letterSelected(event) {
+    this.text += event.letter;
   }
 }

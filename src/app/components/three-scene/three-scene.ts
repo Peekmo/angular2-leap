@@ -84,7 +84,6 @@ export class ThreeScene {
   }
 
   onKeyTap(event) {
-    console.log(event);
     if (!this.timers.keytaphand) {
       this.timers.keytaphand = true;
       this.keytaphand.next(event);

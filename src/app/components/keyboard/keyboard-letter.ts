@@ -1,22 +1,19 @@
-import {Component, Input, Output, EventEmitter, ElementRef, OnInit} from 'angular2/angular2';
+import {Component, ElementRef, Input, Output, EventEmitter} from 'angular2/angular2';
 import {HandElement} from '../../services/hand-element/hand-element';
 import {ComponentManager} from '../../services/component-manager/component-manager';
 
 @Component({
-  selector: 'link-element',
-  template: `
-    <span>
-      <a href="{{ href }}">{{ name }}</a>
-    </span>
-  `
+  selector: 'keyboard-letter',
+  templateUrl: 'app/components/keyboard/keyboard-letter.html',
+  events: ['selected']
 })
-export class LinkElement implements OnInit {
-  @Input() href: string;
-  @Input() name: string;
+export class KeyboardLetter {
+  @Input() letter: string;
+  @Output() selected: EventEmitter = new EventEmitter();
+
   private grabber: HandElement;
   private elmtRef: ElementRef;
-  private manager: ComponentManager
-  private selected: boolean = false;
+  private manager: ComponentManager;
 
   constructor(grabber: HandElement, elmtRef: ElementRef, manager: ComponentManager) {
     this.grabber = grabber;
@@ -31,13 +28,7 @@ export class LinkElement implements OnInit {
   onHover(event) {
     if (this.grabber.isIn(this.elmtRef)) {
       this.elmtRef.nativeElement.classList.add('hover');
-
-      if (event.pinch && !this.selected) {
-        this.selected = true;
-        window.location.href = this.href;
-      }
     } else {
-      this.selected = false;
       this.elmtRef.nativeElement.classList.remove('hover');
     }
   }
@@ -46,5 +37,8 @@ export class LinkElement implements OnInit {
   }
 
   onKeytap(event) {
+    if (this.grabber.isIn(this.elmtRef)) {
+      this.selected.next({letter: this.letter});
+    }
   }
 }

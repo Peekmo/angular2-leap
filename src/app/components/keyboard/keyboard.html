@@ -1,3 +1,7 @@
-<p>
-  keyboard Works!
-</p>
+<p>{{ text }}</p>
+
+<section class="keyboard-container">
+    <span *ng-for="#l of currentKeyboard; #i=index" [ng-class]="(l == 'next_line') ? 'row' : ''">
+        <keyboard-letter [letter]="l" *ng-if="l != 'next_line'" (selected)="letterSelected($event)"></letter>
+    </span>
+</section>
