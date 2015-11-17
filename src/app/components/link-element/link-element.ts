@@ -8,11 +8,13 @@ import {ComponentManager} from '../../services/component-manager/component-manag
     <span>
       <a href="{{ href }}">{{ name }}</a>
     </span>
-  `
+  `,
+  events: ['linkSelected']
 })
 export class LinkElement implements OnInit {
   @Input() href: string;
   @Input() name: string;
+  @Output() linkSelected: EventEmitter = new EventEmitter();
   private grabber: HandElement;
   private elmtRef: ElementRef;
   private manager: ComponentManager
@@ -33,6 +35,8 @@ export class LinkElement implements OnInit {
       this.elmtRef.nativeElement.classList.add('hover');
 
       if (event.pinch && !this.selected) {
+        this.linkSelected.next({});
+
         this.selected = true;
         window.location.href = this.href;
       }

@@ -2,6 +2,9 @@
   <link-element [href]="'http://google.fr'" [name]="'Google'" class="link-element-container"></link-element>
   <link-element [href]="'http://deezer.fr'" [name]="'Deezer'" class="link-element-container"></link-element>
 </p>
-<keyboard [keyboard-type]="'azerty'"></keyboard>
 
-<three-scene></three-scene>
+<center>
+  <link-element [href]="'#'" [name]="showMessage()" class="link-element-container" (link-selected)="toggleKeyboard()"></link-element>
+</center>
+
+<keyboard [keyboard-type]="'azerty'" *ng-if="showKeyboard"></keyboard>
