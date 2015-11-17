@@ -1,19 +1,19 @@
 import {Component, bootstrap} from 'angular2/angular2';
 import {Router, RouteConfig, RouterLink, RouterOutlet} from 'angular2/router';
+import {Page} from './components/page/page';
 import {ThreeScene} from './components/three-scene/three-scene';
-import {Keyboard} from './components/keyboard/keyboard';
-import {LinkElement} from './components/link-element/link-element';
 
 @Component({
   selector: 'leap-app',
   templateUrl: 'app/leap.html',
-  directives: [ThreeScene, LinkElement, Keyboard],
-  styleUrls: ['app/leap.css']
+  styleUrls: ['app/leap.css'],
+  directives: [RouterOutlet, ThreeScene]
 })
 @RouteConfig([
-  {path: '/test', as: 'home', component: LeapApp}
+  {path: '/home', as: 'Home', component: Page}
 ])
 export class LeapApp {
-  constructor() {
+  constructor(router: Router) {
+    router.navigate(['/Home']);
   }
 }

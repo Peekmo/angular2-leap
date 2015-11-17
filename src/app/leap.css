@@ -1,9 +1,1 @@
-.link-element-container {
-    border: 1px solid black;
-    padding: 10px;
-    font-size: 20pt;
-}
 
-.link-element-container.hover {
-    background-color: orange;
-}
