@@ -8,8 +8,7 @@ import {ComponentManager} from '../../services/component-manager/component-manag
     <span>
       <a href="{{ href }}">{{ name }}</a>
     </span>
-  `,
-  events: ['linkSelected']
+  `
 })
 export class LinkElement implements OnInit {
   @Input() href: string;

@@ -61,41 +61,20 @@ export class ThreeScene {
   }
 
   onMoveHand(event) {
-    if (!this.timers.movehand) {
-      this.timers.movehand = true;
-      this.manager.components.forEach(function(elmt) {
-        elmt.onHover(event);
-      });
-
-      setTimeout(() => {
-        this.timers.movehand = false;
-      }, 100);
-    }
+    this.manager.components.forEach(function(elmt) {
+      elmt.onHover(event);
+    });
   }
 
   onSwipeHand(event) {
-    if (!this.timers.swipehand) {
-      this.timers.swipehand = true;
-      this.manager.components.forEach(function(elmt) {
-        elmt.onSwipe(event);
-      });
-
-      setTimeout(() => {
-        this.timers.swipehand = false;
-      }, 100);
-    }
+    this.manager.components.forEach(function(elmt) {
+      elmt.onSwipe(event);
+    });
   }
 
   onKeyTap(event) {
-    if (!this.timers.keytaphand) {
-      this.timers.keytaphand = true;
-      this.manager.components.forEach(function(elmt) {
-        elmt.onKeytap(event);
-      });
-
-      setTimeout(() => {
-        this.timers.keytaphand = false;
-      }, 100);
-    }
+    this.manager.components.forEach(function(elmt) {
+      elmt.onKeytap(event);
+    });
   }
 }

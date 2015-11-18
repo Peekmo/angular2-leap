@@ -6,7 +6,6 @@ declare var Leap: any;
 
 @Component({
   selector: 'leap-hand',
-  events: ['movehand', 'swipehand'],
   template: ''
 })
 export class LeapHand implements OnInit {

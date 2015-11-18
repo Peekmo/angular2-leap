@@ -32,13 +32,6 @@ export class Keyboard {
   }
 
   letterSelected(event) {
-    if (!this.timer) {
-      this.timer = true;
-      this.text += event.letter;
-
-      setTimeout(() => {
-        this.timer = false;
-      }, 50);
-    }
+    this.text += event.letter;
   }
 }

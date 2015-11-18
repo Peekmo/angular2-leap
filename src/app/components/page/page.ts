@@ -12,7 +12,6 @@ import {LinkElement} from '../link-element/link-element';
 })
 export class Page {
   private showKeyboard: boolean = false;
-  private isToggle: boolean = false;
 
   constructor() {}
 
@@ -21,13 +20,6 @@ export class Page {
   }
 
   toggleKeyboard() {
-    if (!this.isToggle) {
-      this.isToggle = true;
-      this.showKeyboard = !this.showKeyboard;
-
-      setTimeout(() => {
-        this.isToggle = false;
-      }, 50);
-    }
+    this.showKeyboard = !this.showKeyboard;
   }
 }

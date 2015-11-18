@@ -4,8 +4,7 @@ import {ComponentManager} from '../../services/component-manager/component-manag
 
 @Component({
   selector: 'keyboard-letter',
-  templateUrl: 'app/components/keyboard/keyboard-letter.html',
-  events: ['selected']
+  templateUrl: 'app/components/keyboard/keyboard-letter.html'
 })
 export class KeyboardLetter {
   @Input() letter: string;
